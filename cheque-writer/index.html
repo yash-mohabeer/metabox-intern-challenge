@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#101a2b"><title>Cheque Writer — Amounts in words</title>
+<style>
+:root{color-scheme:dark;--bg:#101a2b;--panel:#19263b;--panel2:#1d3040;--line:#2c3d56;--ink:#f3f6fc;--muted:#a9bad2;--teal:#48c6b3;--gold:#f0c879;--red:#ff8e8e}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 15% 0%,#21334b 0,transparent 36rem),var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100vh}.wrap{width:min(1080px,calc(100% - 36px));margin:auto;padding:38px 0 56px}.top{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-bottom:30px}.brand{display:flex;align-items:center;gap:14px}.mark{width:46px;height:46px;border-radius:14px;background:linear-gradient(145deg,#57d4c0,#27a897);color:#102537;display:grid;place-items:center;font-weight:900;font-size:23px;box-shadow:0 8px 26px #48c6b32b}.brand h1{font-size:22px;line-height:1.2;margin:0}.brand p{margin:4px 0 0;color:var(--muted)}.lang{border:1px solid var(--line);border-radius:12px;padding:6px;background:#121e30;display:flex}.lang button{border:0;color:var(--muted);background:transparent;border-radius:8px;padding:8px 13px;font-weight:700;cursor:pointer}.lang button[aria-pressed=true]{background:#294457;color:#7ce0d1}.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}.card{background:#19263bf2;border:1px solid var(--line);border-radius:18px;padding:25px;box-shadow:0 18px 55px #0002}.card h2{font-size:17px;margin:0 0 20px;letter-spacing:.01em}.field-label{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:13px;font-weight:700;margin-bottom:8px}.input-wrap{position:relative}.currency{position:absolute;left:15px;top:50%;transform:translateY(-50%);color:var(--teal);font-weight:800}.amount{width:100%;font:700 22px/1.3 inherit;color:var(--ink);background:#101a2b;border:1px solid #3a4e6c;border-radius:12px;padding:14px 15px 14px 58px;outline:none;font-variant-numeric:tabular-nums}.amount:focus,.text-input:focus{border-color:var(--teal);box-shadow:0 0 0 3px #48c6b322}.hint{font-size:12px;color:#879bb7;margin:9px 1px 0}.divider{height:1px;background:var(--line);margin:22px 0}.result{min-height:96px;background:#102d36;border:1px solid #28635e;border-radius:13px;padding:17px;color:#d9fff6;font-size:17px;font-weight:650;line-height:1.55;display:flex;align-items:center}.result.error{background:#3b222b;border-color:#79434b;color:#ffd1d1}.buttons{display:flex;gap:10px;margin-top:14px}.btn{border:1px solid var(--line);border-radius:10px;padding:10px 15px;background:#22324a;color:var(--ink);font:700 14px inherit;cursor:pointer;transition:transform .15s,background .15s}.btn:hover{background:#2d425f;transform:translateY(-1px)}.btn.primary{background:var(--teal);border-color:var(--teal);color:#10272a}.btn.primary:hover{background:#6cdac9}.btn:focus-visible,.lang button:focus-visible{outline:3px solid #b2fff1;outline-offset:2px}.cheque{grid-column:1/-1;background:linear-gradient(120deg,#f9f6e9,#f3edda);color:#203148;border:1px solid #d9d1b8;border-radius:18px;padding:25px 30px;position:relative;overflow:hidden;box-shadow:0 16px 42px #0002}.cheque:after{content:"";position:absolute;width:230px;height:230px;border:1px solid #d7cfae;border-radius:50%;right:-35px;top:-95px;box-shadow:0 0 0 13px #d7cfae22,0 0 0 30px #d7cfae15;pointer-events:none}.cheque-head{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:1px solid #d6cfb9;padding-bottom:16px}.cheque-brand{font-weight:900;letter-spacing:.15em;font-size:14px}.cheque-brand small{display:block;font-size:10px;font-weight:600;color:#77816d;letter-spacing:.08em}.date-box{font-size:12px;color:#617080}.date-box input{font:600 14px inherit;color:#253953;border:0;border-bottom:1px solid #acb2a5;background:transparent;padding:5px;width:145px}.payline{margin-top:16px;color:#687384;font-size:12px;text-transform:uppercase;letter-spacing:.1em}.text-input{width:100%;border:0;border-bottom:1px solid #aeb6ab;background:transparent;padding:6px 2px;color:#203148;font:600 16px inherit;outline:none}.words-line{min-height:65px;margin-top:12px;border-bottom:1px solid #aeb6ab;padding:10px 4px;font:italic 600 16px/1.55 Georgia,serif;color:#1a4a49;overflow-wrap:anywhere}.words-line:empty:before{content:"Amount in words appears here";color:#939a94;font-weight:400}.cheque-bottom{display:flex;justify-content:flex-end;align-items:flex-end;margin-top:20px;gap:35px}.signature{width:170px;text-align:center;border-top:1px solid #aeb6ab;padding-top:5px;color:#758071;font-size:11px}.boxed-amount{border:1px solid #aeb6ab;padding:8px 14px;min-width:120px;text-align:right;font:700 17px inherit;color:#203148}.footer{color:#8192aa;text-align:center;font-size:12px;margin-top:22px}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}@media(max-width:720px){.wrap{padding-top:23px}.grid{grid-template-columns:1fr}.cheque{grid-column:auto}.top{align-items:flex-start}.brand h1{font-size:19px}.card{padding:20px}.cheque{padding:20px}.cheque-bottom{gap:16px}.signature{width:125px}}@media(max-width:400px){.lang button{padding:7px 9px}.brand{gap:9px}.mark{width:40px;height:40px}.cheque-bottom{justify-content:space-between}.signature{width:105px}}
+.cheque #chequePayee{font-size:20px;font-weight:400!important;color:#10263f;line-height:1.5;padding:5px 4px}.cheque .words-line{font-size:19px;font-weight:700;color:#123b38;line-height:1.6;min-height:74px}.cheque .boxed-amount{font-size:19px;font-weight:800;color:#10263f;border:2px solid #728273}.cheque .payline{color:#4d5d66;font-weight:800}.cheque input.text-input{font-size:18px;font-weight:700;color:#10263f} .cheque input.text-input::placeholder{color:#75816f} #payee,#date{color:#fff!important;font-size:18px;font-weight:700}#date{color-scheme:dark}#payee::placeholder{color:#a9bad2} /* Refined interface */
+body{background:radial-gradient(ellipse at 8% 0%,#243b57 0,transparent 34rem),radial-gradient(ellipse at 95% 35%,#173a43 0,transparent 30rem),var(--bg);letter-spacing:.005em}
+.wrap{width:min(1120px,calc(100% - 40px));padding-top:46px}
+.top{margin-bottom:34px}.brand{gap:16px}.mark{width:52px;height:52px;border-radius:16px;box-shadow:0 10px 28px #35c6b433}.brand h1{font-size:25px;letter-spacing:-.035em}.brand p{font-size:14px}
+.lang{padding:5px;border-radius:13px;background:#111c2dcc}.lang button{min-width:48px;padding:9px 13px}.lang button[aria-pressed=true]{background:#244b51;color:#8ce8d7}
+.grid{gap:22px}.card{background:linear-gradient(145deg,#1b2a40f5,#172338f5);border-color:#344761;border-radius:20px;padding:28px;box-shadow:0 20px 55px #050b1450,inset 0 1px #ffffff08}.card h2{font-size:18px;letter-spacing:-.02em;margin-bottom:23px}.field-label{font-size:11px;letter-spacing:.095em;color:#afc1d9}.amount{font:700 24px/1.3 system-ui,-apple-system,"Segoe UI",sans-serif;background:#101a2b;border-color:#435a78;border-radius:13px;padding:15px 16px 15px 61px}.amount:focus,.text-input:focus{border-color:#54d2be;box-shadow:0 0 0 4px #48c6b328}.hint{font-size:12px;color:#9aacc4;line-height:1.6}.divider{background:#ffffff12;margin:24px 0}.result{min-height:108px;background:linear-gradient(135deg,#102e37,#143740);border-color:#347368;border-radius:14px;padding:19px;color:#e3fff8;font-size:18px;line-height:1.6;box-shadow:inset 0 1px #ffffff08}.buttons{gap:12px;margin-top:16px}.btn{font:700 14px/1.3 system-ui,-apple-system,"Segoe UI",sans-serif;border-radius:11px;padding:12px 17px}.btn.primary{box-shadow:0 7px 18px #48c6b326}.btn.primary:hover{box-shadow:0 9px 22px #48c6b33c}
+#payee,#date{font:600 18px/1.4 system-ui,-apple-system,"Segoe UI",sans-serif;color:#fff!important}.text-input{padding:9px 2px;border-bottom-color:#55667d}.cheque{background:linear-gradient(125deg,#fbf9f0,#f2eddc);border-color:#ddd4b7;border-radius:20px;padding:30px 34px;box-shadow:0 20px 50px #050b1438,inset 0 1px #fff}.cheque-head{padding-bottom:19px;border-bottom-color:#d6cfb9}.cheque-brand{font-size:15px}.cheque .payline{margin-top:19px;color:#536473}.cheque #chequePayee{min-height:38px!important;padding:5px 4px!important;font-size:21px;line-height:1.45}.cheque .words-line{min-height:80px;margin-top:14px;padding:13px 6px;font-size:20px;line-height:1.55}.cheque-bottom{margin-top:23px}.cheque .boxed-amount{border-radius:4px;padding:10px 15px}.footer{color:#9bacc2;margin-top:26px}
+@media(max-width:720px){.wrap{width:min(calc(100% - 28px),560px);padding-top:25px}.top{margin-bottom:24px}.grid{gap:16px}.card{padding:22px}.cheque{padding:22px}.brand h1{font-size:22px}.cheque .words-line{font-size:18px}}
+@media(prefers-reduced-motion:no-preference){.card,.cheque{animation:rise-in .45s both}.cheque{animation-delay:.08s}@keyframes rise-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}}/* Small-screen layout */
+@media(max-width:560px){
+  .wrap{width:calc(100% - 28px);padding:22px 0 36px}
+  .top{align-items:center;flex-wrap:wrap;gap:14px;margin-bottom:22px}
+  .brand{min-width:0;flex:1 1 210px;gap:12px}
+  .brand h1{font-size:21px}.brand p{font-size:13px;line-height:1.4}
+  .mark{flex:0 0 46px;width:46px;height:46px}
+  .lang{flex:0 0 auto;margin-left:auto}
+  .grid{grid-template-columns:minmax(0,1fr);gap:15px}
+  .card,.cheque{min-width:0;padding:19px;border-radius:17px}
+  .card h2{margin-bottom:18px}
+  .field-label{gap:10px;font-size:10px}
+  .amount{font-size:20px;padding:14px 12px 14px 56px}
+  .result{font-size:16px;padding:16px;min-height:96px}
+  .buttons{flex-wrap:wrap}.btn{min-height:44px}
+  .cheque{grid-column:auto;padding:20px}
+  .cheque-head{gap:12px}.cheque-brand{font-size:13px;letter-spacing:.11em}
+  .cheque-brand small{font-size:9px;letter-spacing:.04em}
+  .date-box{position:relative;z-index:1;white-space:nowrap}
+  .cheque .payline{font-size:10px;letter-spacing:.08em}
+  .cheque #chequePayee{font-size:19px;overflow-wrap:anywhere}
+  .cheque .words-line{font-size:17px;min-height:76px;overflow-wrap:anywhere;hyphens:auto}
+  .cheque-bottom{gap:12px;flex-wrap:wrap;justify-content:space-between}
+  .signature{width:min(42%,150px)}
+  .cheque .boxed-amount{min-width:0;padding:9px 11px;font-size:17px}
+  .footer{font-size:11px;line-height:1.6;padding:0 8px}
+  #payee,#date{font-size:16px}
+}
+@media(max-width:380px){
+  .wrap{width:calc(100% - 22px)}
+  .top{gap:12px}
+  .brand{flex-basis:185px;gap:9px}
+  .brand h1{font-size:19px}
+  .mark{flex-basis:42px;width:42px;height:42px}
+  .lang button{min-width:40px;padding:8px 9px}
+  .card,.cheque{padding:16px}
+  .field-label{font-size:9px}
+  .cheque-head{align-items:center}
+  .cheque-brand{font-size:11px}
+  .cheque-brand small{font-size:8px}
+  .cheque .boxed-amount{font-size:15px}
+}/* Accessibility refinements */
+.amount:focus-visible,.text-input:focus-visible{outline:3px solid #80ead9;outline-offset:3px}
+.amount[aria-invalid="true"]{border-color:#ff9b9b;box-shadow:0 0 0 3px #ff8e8e35}
+.result.error{background:#4a222b;border-color:#d4777e;color:#ffe8e8}
+.btn:active,.lang button:active{transform:translateY(1px)}
+.cheque-brand small{max-width:230px;line-height:1.4}</style>
+</head>
+<body>
+<main class="wrap">
+<header class="top"><div class="brand"><div class="mark" aria-hidden="true"><svg viewBox="0 0 32 32" width="27" height="27" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="6" width="24" height="20" rx="3.5" stroke="currentColor" stroke-width="2.2"/><path d="M8 11h8M8 15h6M8 20h9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="22" cy="15" r="3.2" stroke="currentColor" stroke-width="2"/><path d="m20.6 20 1.4 1.4 3-3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><h1 data-en="Cheque Writer" data-fr="Rédacteur de chèques">Cheque Writer</h1><p data-en="Amounts in words, ready to write." data-fr="Les montants en toutes lettres, prêts à être inscrits.">Amounts in words, ready to write.</p></div></div><div class="lang" role="group" aria-label="Language"><button type="button" id="enBtn" aria-pressed="true">EN</button><button type="button" id="frBtn" aria-pressed="false">FR</button></div></header>
+<div class="grid">
+<section class="card" aria-labelledby="amountHeading"><h2 id="amountHeading" data-en="Enter an amount" data-fr="Saisissez un montant">Enter an amount</h2><label class="field-label" for="amount"><span data-en="AMOUNT (MUR)" data-fr="MONTANT (MUR)">AMOUNT (MUR)</span><span data-en="Up to 9,999,999.99" data-fr="Jusqu’à 9 999 999,99">Up to 9,999,999.99</span></label><div class="input-wrap"><span class="currency" aria-hidden="true">MUR</span><input class="amount" id="amount" type="number" inputmode="decimal" min="0" max="9999999.99" step="0.01" value="1250.50" aria-describedby="amountHint"></div><p class="hint" id="amountHint" data-en="Enter rupees and cents. Zero is handled correctly." data-fr="Saisissez les roupies et les centimes. Zéro est pris en charge.">Enter rupees and cents. Zero is handled correctly.</p><div class="divider"></div><div class="field-label"><span data-en="AMOUNT IN WORDS" data-fr="MONTANT EN LETTRES">AMOUNT IN WORDS</span></div><div class="result" id="result" aria-live="polite" aria-atomic="true"></div><div class="buttons"><button class="btn primary" id="copyBtn" type="button"><span data-en="Copy words" data-fr="Copier le texte">Copy words</span></button><button class="btn" id="clearBtn" type="button"><span data-en="Clear" data-fr="Effacer">Clear</span></button><span class="sr-only" id="status" aria-live="polite"></span></div></section>
+<section class="card" aria-labelledby="previewHeading"><h2 id="previewHeading" data-en="Cheque preview" data-fr="Aperçu du chèque">Cheque preview</h2><label class="field-label" for="payee"><span data-en="PAY TO THE ORDER OF" data-fr="PAYEZ À L’ORDRE DE">PAY TO THE ORDER OF</span></label><input class="text-input" id="payee" placeholder="" autocomplete="off"><label class="field-label" for="date" style="margin-top:19px"><span data-en="DATE" data-fr="DATE">DATE</span></label><input class="text-input" id="date" type="date"></section>
+<section class="cheque" aria-label="Sample cheque preview; not valid for payment"><div class="cheque-head"><div class="cheque-brand">CHEQUE WRITER<small data-en="SAMPLE • NOT VALID FOR PAYMENT" data-fr="EXEMPLE • SANS VALEUR DE PAIEMENT">SAMPLE • NOT VALID FOR PAYMENT</small></div><div class="date-box"><span data-en="DATE" data-fr="DATE">DATE</span><div id="chequeDate"></div></div></div><div class="payline" data-en="Pay to the order of" data-fr="Payez à l’ordre de">Pay to the order of</div><div id="chequePayee" style="min-height:30px;border-bottom:1px solid #aeb6ab;padding:3px 2px;font-weight:650"></div><div class="payline" data-en="The sum of" data-fr="La somme de">The sum of</div><div class="words-line" id="chequeWords"></div><div class="cheque-bottom"><div class="signature" data-en="Authorized signature" data-fr="Signature autorisée">Authorized signature</div><div class="boxed-amount" id="chequeAmount">MUR 1,250.50</div></div></section></div><footer class="footer" data-en="Runs entirely in your browser. Your information stays on this device." data-fr="Fonctionne entièrement dans votre navigateur. Vos informations restent sur cet appareil.">Runs entirely in your browser. Your information stays on this device.</footer>
+</main>
+<script>
+(()=>{
+const amountInput=document.querySelector('#amount'),result=document.querySelector('#result'),wordsOutput=document.querySelector('#chequeWords'),copyBtn=document.querySelector('#copyBtn'),status=document.querySelector('#status'),payee=document.querySelector('#payee'),dateInput=document.querySelector('#date'),chequeAmount=document.querySelector('#chequeAmount');
+let language='en';
+const enOnes=['zero','one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen'];
+const enTens=['','','twenty','thirty','forty','fifty','sixty','seventy','eighty','ninety'];
+function frSmall(n){
+ const u=['zéro','un','deux','trois','quatre','cinq','six','sept','huit','neuf','dix','onze','douze','treize','quatorze','quinze','seize'];
+ if(n<=16)return u[n]; if(n<20)return 'dix-'+u[n-10];
+ if(n<70){const tens=['','','vingt','trente','quarante','cinquante','soixante'][Math.floor(n/10)],unit=n%10;return tens+(unit?(unit===1?' et ':'-')+u[unit]:'')}
+ if(n===71)return 'soixante et onze';if(n<80)return 'soixante-'+frSmall(n-60);
+ if(n===80)return 'quatre-vingts';
+ if(n<100)return 'quatre-vingt-'+frSmall(n-80);
+ return '';
+}
+function underThousand(n,lang){
+ if(lang==='en'){
+  const out=[];if(n>=100){out.push(enOnes[Math.floor(n/100)]+' hundred');n%=100}
+  if(n){if(n<20)out.push(enOnes[n]);else out.push(enTens[Math.floor(n/10)]+(n%10?'-'+enOnes[n%10]:''))}
+  return out.join(' ');
+ }
+ const out=[];if(n>=100){const hundreds=Math.floor(n/100),remainder=n%100;out.push((hundreds===1?'':frSmall(hundreds)+' ')+'cent'+(hundreds>1&&!remainder?'s':''));n=remainder}
+ if(n)out.push(frSmall(n));return out.join(' ');
+}
+function chunkWords(n,lang){
+ if(!n)return lang==='en'?'zero':'zéro';
+ const scales=lang==='en'?['','thousand','million']:['','mille','million'];let groups=[],i=0;
+ while(n>0){const chunk=n%1000;if(chunk){let part=underThousand(chunk,lang),scale=scales[i]||'';
+  if(lang==='fr'&&i===1&&chunk===1)part='';
+  if(lang==='fr'&&i===2&&chunk>1)scale='millions';
+  groups.unshift((part+(scale?' '+scale:'')).trim())
+ }n=Math.floor(n/1000);i++}
+ return groups.join(' ');
+}
+function toWords(cents,lang){
+ const rupees=Math.floor(cents/100),fraction=cents%100;let whole=chunkWords(rupees,lang);
+ if(lang==='fr'&&rupees%10===1&&rupees%100!==11)whole=whole.replace(/un$/,'une');
+ const rupeeUnit=lang==='en'?(rupees===1?'rupee':'rupees'):(rupees>1?'roupies':'roupie');let out=whole+' '+rupeeUnit;
+ if(fraction){let centWords=chunkWords(fraction,lang);if(lang==='fr'&&fraction%10===1&&fraction%100!==11)centWords=centWords.replace(/un$/,'une');const centUnit=lang==='en'?(fraction===1?'cent':'cents'):(fraction>1?'centimes':'centime');out+=(lang==='en'?' and ':' et ')+centWords+' '+centUnit}
+ return out.charAt(0).toLocaleUpperCase(lang==='fr'?'fr':'en')+out.slice(1);
+}
+function formatAmount(cents){return new Intl.NumberFormat(language==='fr'?'fr-MU':'en-MU',{minimumFractionDigits:2,maximumFractionDigits:2}).format(cents/100)}
+function update(){
+ const raw=amountInput.value;
+ amountInput.removeAttribute('aria-invalid');
+ if(raw===''){result.textContent=language==='en'?'Enter an amount to see it in words.':'Saisissez un montant pour le convertir.';result.classList.remove('error');wordsOutput.textContent='';chequeAmount.textContent='MUR —';return}
+ const fraction=raw.includes('.')?raw.split('.')[1]:'';
+ if(!/^\d+(?:\.\d*)?$/.test(raw)||fraction.length>2){
+  amountInput.setAttribute('aria-invalid','true');result.textContent=language==='en'?'Enter a non-negative amount with no more than two decimal places.':'Saisissez un montant positif avec au maximum deux décimales.';result.classList.add('error');wordsOutput.textContent='';chequeAmount.textContent='MUR —';return;
+ }
+ const value=Number(raw),parts=raw.split('.'),whole=Number(parts[0]),fractionCents=Number(((parts[1]||'')+'00').slice(0,2)),cents=whole*100+fractionCents;
+ if(!Number.isFinite(value)||value<0||cents>999999999){
+  amountInput.setAttribute('aria-invalid','true');result.textContent=language==='en'?'Enter an amount from 0 to 9,999,999.99.':'Saisissez un montant entre 0 et 9 999 999,99.';result.classList.add('error');wordsOutput.textContent='';chequeAmount.textContent='MUR —';return;
+ }
+ result.classList.remove('error');const words=toWords(cents,language);result.textContent=words;wordsOutput.textContent=words;chequeAmount.textContent='MUR '+formatAmount(cents);
+}
+function setLanguage(lang){
+ language=lang;document.documentElement.lang=lang;document.querySelector('#enBtn').setAttribute('aria-pressed',lang==='en');document.querySelector('#frBtn').setAttribute('aria-pressed',lang==='fr');
+ document.querySelectorAll('[data-en][data-fr]').forEach(el=>el.textContent=el.dataset[lang]);
+ amountInput.setAttribute('aria-label',lang==='en'?'Amount in Mauritian rupees':'Montant en roupies mauriciennes');
+ document.querySelector('.cheque').setAttribute('aria-label',lang==='en'?'Sample cheque preview; not valid for payment':'Aperçu de chèque fictif ; sans valeur de paiement');
+ update();syncDate();
+}
+async function copy(){
+ if(!amountInput.value||result.classList.contains('error'))return;
+ let copied=false;
+ try{await navigator.clipboard.writeText(result.textContent);copied=true}catch{
+  const temp=document.createElement('textarea');temp.value=result.textContent;temp.setAttribute('readonly','');temp.style.position='fixed';temp.style.opacity='0';document.body.appendChild(temp);temp.select();copied=document.execCommand('copy');temp.remove();
+ }
+ status.textContent=copied?(language==='en'?'Amount in words copied.':'Montant en lettres copié.'):(language==='en'?'Copy was unavailable in this browser.':'La copie est indisponible dans ce navigateur.');
+ if(copied){copyBtn.textContent=language==='en'?'Copied!':'Copié !';setTimeout(()=>{copyBtn.textContent=language==='en'?'Copy words':'Copier le texte'},1400)}
+}
+function syncDate(){const d=dateInput.value;if(!d){document.querySelector('#chequeDate').textContent='';return}const date=new Date(d+'T12:00:00');document.querySelector('#chequeDate').textContent=new Intl.DateTimeFormat(language==='fr'?'fr-MU':'en-MU',{day:'2-digit',month:'2-digit',year:'numeric'}).format(date)}
+amountInput.setAttribute('aria-label','Amount in Mauritian rupees');amountInput.setAttribute('aria-describedby','amountHint result');
+amountInput.addEventListener('input',update);document.querySelector('#enBtn').addEventListener('click',()=>setLanguage('en'));document.querySelector('#frBtn').addEventListener('click',()=>setLanguage('fr'));copyBtn.addEventListener('click',copy);
+document.querySelector('#clearBtn').addEventListener('click',()=>{amountInput.value='';update();amountInput.focus()});payee.addEventListener('input',()=>document.querySelector('#chequePayee').textContent=payee.value);dateInput.addEventListener('input',syncDate);update();
+})();
+</script>
+</body></html>
+
+
+
+
+
+
+
+
+
+
